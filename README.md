@@ -42,3 +42,12 @@ curl -X POST http://localhost:3001/api/roadmaps \
   -H 'Content-Type: application/json' \
   -d '{"title":"Graph Theory","description":"Explore networks, paths, and connections.","level":"Beginner"}'
 ```
+
+
+## Free GitHub Pages site
+
+The React frontend can be hosted free on GitHub Pages for this public repository. The built frontend is included in the `docs/` folder. In repository Settings → Pages, choose `main` as the branch and `/docs` as the folder to publish. The site URL is:
+
+`https://adityadhinakaran.github.io/Major_Group_Project_3rdSem/`
+
+The Pages site uses the built-in sample roadmap data. GitHub Pages only serves static files, so the Express API and PostgreSQL community submissions need a separate Node.js host and database to persist.
