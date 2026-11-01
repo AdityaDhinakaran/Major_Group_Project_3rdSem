@@ -48,4 +48,4 @@ curl -X POST http://localhost:3001/api/roadmaps \
 
 The project is configured for Vercel Services. The `client` folder builds the React frontend, while the `server` folder runs the Express API. Vercel routes `/api/*` requests to Express and all other requests to React. The deployment uses one `*.vercel.app` address.
 
-The app works with sample roadmap data without a database. To persist community suggestions, connect a PostgreSQL database and set `DATABASE_URL` in the Vercel project environment variables. The table is created automatically on the first API request.
+The Vercel project is connected to a free Neon PostgreSQL database for Production and Preview. The Neon integration provides `DATABASE_URL`, and the table is created automatically on the first API request. To use another database, set `DATABASE_URL` in the Vercel project environment variables.
