@@ -44,10 +44,8 @@ curl -X POST http://localhost:3001/api/roadmaps \
 ```
 
 
-## Free GitHub Pages site
+## Deploy on Vercel
 
-The React frontend can be hosted free on GitHub Pages for this public repository. The built frontend is included in the `docs/` folder. In repository Settings → Pages, choose `main` as the branch and `/docs` as the folder to publish. The site URL is:
+The project is configured for Vercel. Import this GitHub repository in Vercel; `vercel.json` builds the React frontend into static assets and deploys the Express API as a serverless function. Vercel will assign a free `*.vercel.app` address.
 
-`https://adityadhinakaran.github.io/Major_Group_Project_3rdSem/`
-
-The Pages site uses the built-in sample roadmap data. GitHub Pages only serves static files, so the Express API and PostgreSQL community submissions need a separate Node.js host and database to persist.
+The app works with sample roadmap data without a database. To persist community suggestions, add a PostgreSQL database and set `DATABASE_URL` in the Vercel project environment variables, then apply `server/db/schema.sql`.
