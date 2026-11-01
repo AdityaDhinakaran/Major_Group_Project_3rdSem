@@ -9,8 +9,7 @@
   "scripts": {
     "dev": "concurrently \"npm run dev -w server\" \"npm run dev -w client\"",
     "build": "npm run build -w client",
-    "start": "npm run start -w server",
-    "build:vercel": "npm run build -w client && node scripts/prepare-vercel.js"
+    "start": "npm run start -w server"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

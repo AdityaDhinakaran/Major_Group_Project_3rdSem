@@ -46,6 +46,6 @@ curl -X POST http://localhost:3001/api/roadmaps \
 
 ## Deploy on Vercel
 
-The project is configured for Vercel. Import this GitHub repository in Vercel; `vercel.json` builds the React frontend into static assets and deploys the Express API as a serverless function. Vercel will assign a free `*.vercel.app` address.
+The project is configured for Vercel Services. The `client` folder builds the React frontend, while the `server` folder runs the Express API. Vercel routes `/api/*` requests to Express and all other requests to React. The deployment uses one `*.vercel.app` address.
 
 The app works with sample roadmap data without a database. To persist community suggestions, add a PostgreSQL database and set `DATABASE_URL` in the Vercel project environment variables, then apply `server/db/schema.sql`.
