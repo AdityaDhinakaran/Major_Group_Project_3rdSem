@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import { pool } from './db.js';
+import { ensureDatabase, pool } from './db.js';
 
 const app = express();
 app.use(cors());
@@ -18,13 +18,14 @@ const starterPaths = [
 
 app.get('/api/health', async (_req, res) => {
   if (!pool) return res.json({ status: 'ok', database: 'not configured' });
-  try { await pool.query('SELECT 1'); res.json({ status: 'ok', database: 'connected' }); }
+  try { await ensureDatabase(); await pool.query('SELECT 1'); res.json({ status: 'ok', database: 'connected' }); }
   catch { res.status(503).json({ status: 'error', database: 'unavailable' }); }
 });
 
 app.get('/api/roadmaps', async (_req, res) => {
   if (!pool) return res.json(starterPaths);
   try {
+    await ensureDatabase();
     const { rows } = await pool.query('SELECT id, title, category, level, icon, color, description, topics, hours, learners, progress, tags, featured FROM roadmaps ORDER BY created_at DESC');
     res.json(rows.length ? rows : starterPaths);
   } catch (error) {
@@ -42,6 +43,7 @@ app.post('/api/roadmaps', async (req, res) => {
   const roadmap = { id: safeId, title: title.trim().slice(0, 60), category: String(category).slice(0, 40), level, icon, color, description: description.trim().slice(0, 240), topics: Number(topics) || 1, hours: Number(hours) || 1, learners: Number(learners) || 1, progress: Number(progress) || 0, tags: Array.isArray(tags) ? tags.slice(0, 5).map(String) : [] };
   if (pool) {
     try {
+      await ensureDatabase();
       const { rows } = await pool.query(
         `INSERT INTO roadmaps (id, title, category, level, icon, color, description, topics, hours, learners, progress, tags)
          VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)

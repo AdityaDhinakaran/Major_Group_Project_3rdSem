@@ -27,7 +27,7 @@ Create a database named `mathpath`, copy `.env.example` to `.env`, and set `DATA
 psql "$DATABASE_URL" -f server/db/schema.sql
 ```
 
-When `DATABASE_URL` is configured, roadmap suggestions are stored in PostgreSQL. Without it, the API serves starter data and accepts suggestions for the current session.
+When `DATABASE_URL` is configured, the API creates its `roadmaps` table automatically and stores roadmap suggestions in PostgreSQL. Without it, the API serves starter data and accepts suggestions for the current session.
 
 ## API
 
@@ -48,4 +48,4 @@ curl -X POST http://localhost:3001/api/roadmaps \
 
 The project is configured for Vercel Services. The `client` folder builds the React frontend, while the `server` folder runs the Express API. Vercel routes `/api/*` requests to Express and all other requests to React. The deployment uses one `*.vercel.app` address.
 
-The app works with sample roadmap data without a database. To persist community suggestions, add a PostgreSQL database and set `DATABASE_URL` in the Vercel project environment variables, then apply `server/db/schema.sql`.
+The app works with sample roadmap data without a database. To persist community suggestions, connect a PostgreSQL database and set `DATABASE_URL` in the Vercel project environment variables. The table is created automatically on the first API request.
